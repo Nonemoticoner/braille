@@ -16,7 +16,7 @@ module.exports = {
 	convert: function (character) {
 		var sign = undefined;
 
-		//
+		// searches sets
 		for (var i = this.sets.ascii.length - 1; i >= 0; i--) {
 			if(this.sets.ascii[i] == character){
 				sign = this.sets.dot6[i];
@@ -25,6 +25,27 @@ module.exports = {
 		
 		// if not found will return undefined
 		return sign;
+	},
+
+	// converts text to ASCII Braille alphabet
+	toBraille: function (text) {
+		// make given text uppercase
+		var upper = text.toUpperCase(),
+			result = "";
+
+		for(var i = 0; i < upper.length; i++) {
+			var symbol = this.convert(upper[i]);
+
+			// unsupported letters will be ommited
+			if(typeof symbol == "undefined"){
+				result += "";
+			}
+			else{
+				result += symbol;
+			}
+		}
+
+		return result;
 	}
 	
 };
