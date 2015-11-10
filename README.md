@@ -1,2 +1,19 @@
 # braille
 A Node module for converting text to Braille alphabet.
+
+#### Installation
+```bash
+$ npm install braille
+```
+
+#### How to use
+Basic usage with number (length) as argument:
+```js
+var br = require('braille');
+
+var code = br.toBraille("EXAMPLE TEXT 123"); //  ⠑⠭⠁⠍⠏⠇⠑⠀⠞⠑⠭⠞⠀⠂⠆⠒
+```
+Currently only six dot Braille notation is supported.
+
+#### License
+MIT

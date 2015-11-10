@@ -1,6 +1,6 @@
 {
   "name": "braille",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A Node module for converting text to Braille alphabet.",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,17 @@
   "bugs": {
     "url": "https://github.com/Nonemoticoner/braille/issues"
   },
-  "homepage": "https://github.com/Nonemoticoner/braille#readme"
+  "homepage": "https://github.com/Nonemoticoner/braille#readme",
+  "keywords": [
+    "js",
+    "javascript",
+    "braille",
+    "alphabet",
+    "code",
+    "converter",
+    "node",
+    "text",
+    "translator",
+    "translate"
+  ]
 }
