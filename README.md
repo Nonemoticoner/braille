@@ -7,11 +7,11 @@ $ npm install braille
 ```
 
 #### How to use
-Basic usage with number (length) as argument:
+Very simple in use with text (string) as argument:
 ```js
 var br = require('braille');
 
-var code = br.toBraille("EXAMPLE TEXT 123"); //  ⠑⠭⠁⠍⠏⠇⠑⠀⠞⠑⠭⠞⠀⠂⠆⠒
+var code = br.toBraille('EXAMPLE TEXT 123'); //  ⠑⠭⠁⠍⠏⠇⠑⠀⠞⠑⠭⠞⠀⠂⠆⠒
 ```
 Currently only six dot Braille notation is supported.
 
