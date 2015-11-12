@@ -1,6 +1,6 @@
 {
   "name": "braille",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A Node module for converting text to Braille alphabet.",
   "main": "index.js",
   "scripts": {
