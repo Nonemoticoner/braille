@@ -12,6 +12,8 @@ Very simple in use with text (string) as argument:
 var br = require('braille');
 
 var code = br.toBraille('EXAMPLE TEXT 123'); //  ⠑⠭⠁⠍⠏⠇⠑⠀⠞⠑⠭⠞⠀⠂⠆⠒
+
+var text = br.toText('⠁⠝⠕⠞⠓⠑⠗⠀⠺⠕⠗⠙'); //  ANOTHER WORD
 ```
 Currently only six dot Braille notation is supported.
 
