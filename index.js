@@ -152,8 +152,8 @@ module.exports = {
   toBraille: function (text) {
     var upperText, upperTextLength, brailleText, i;
 
-    upperText = text.toUpperCase(),
-      upperTextLength = upperText.length;
+    upperText = text.toUpperCase();
+    upperTextLength = upperText.length;
     brailleText = "";
 
     for(i = 0; i < upperTextLength; i++) {
