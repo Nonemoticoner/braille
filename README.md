@@ -1,3 +1,5 @@
+> **WARNING!** `master` is currently a temporary development branch
+
 # braille
 A Node module for converting text to Braille alphabet.
 

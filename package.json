@@ -1,10 +1,10 @@
 {
     "name": "braille",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "A Node module for converting text to Braille alphabet.",
     "main": "index.js",
     "scripts": {
-        "test": "sh tests/test.sh",
+        "test": "mocha ./tests/test.js",
         "prepublish": "npm prune"
     },
     "repository": {
