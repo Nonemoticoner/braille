@@ -6,83 +6,182 @@
  * Licensed under the MIT license.
  */
 
-module.exports = {
-	sets: {
-		ascii: " A1B\'K2L@CIF/MSP\"E3H9O6R^DJG>NTQ,*5<-U8V.%[$+X!&;:4\\0Z7(_?W]#Y)=",
-		dot6:  "⠀⠁⠂⠃⠄⠅⠆⠇⠈⠉⠊⠋⠌⠍⠎⠏⠐⠑⠒⠓⠔⠕⠖⠗⠘⠙⠚⠛⠜⠝⠞⠟⠠⠡⠢⠣⠤⠥⠦⠧⠨⠩⠪⠫⠬⠭⠮⠯⠰⠱⠲⠳⠴⠵⠶⠷⠸⠹⠺⠻⠼⠽⠾⠿"
-	},
+var BRAILLE = {
+    " ": " ",
+    "_": "⠸",
+    "-": "⠤",
+    ",": "⠠",
+    ";": "⠰",
+    ":": "⠱",
+    "!": "⠮",
+    "?": "⠹",
+    ".": "⠨",
+    "(": "⠷",
+    "[": "⠪",
+    "@": "⠈",
+    "*": "⠡",
+    "/": "⠌",
+    "\'": "⠄",
+    "\"": "⠐",
+    "\\": "⠳",
+    "&": "⠯",
+    "%": "⠩",
+    "^": "⠘",
+    "+": "⠬",
+    "<": "⠣",
+    ">": "⠜",
+    "$": "⠫",
+    "0": "⠴",
+    "1": "⠂",
+    "2": "⠆",
+    "3": "⠒",
+    "4": "⠲",
+    "5": "⠢",
+    "6": "⠖",
+    "7": "⠶",
+    "8": "⠦",
+    "9": "⠔",
+    "A": "⠁",
+    "B": "⠃",
+    "C": "⠉",
+    "D": "⠙",
+    "E": "⠑",
+    "F": "⠋",
+    "G": "⠛",
+    "H": "⠓",
+    "I": "⠊",
+    "J": "⠚",
+    "K": "⠅",
+    "L": "⠇",
+    "M": "⠍",
+    "N": "⠝",
+    "O": "⠕",
+    "P": "⠏",
+    "Q": "⠟",
+    "R": "⠗",
+    "S": "⠎",
+    "T": "⠞",
+    "U": "⠥",
+    "V": "⠧",
+    "W": "⠺",
+    "X": "⠭",
+    "Z": "⠵",
+    "]": "⠻",
+    "#": "⠼",
+    "Y": "⠽",
+    ")": "⠾",
+    "=": "⠿",
+};
 
-	// converts character to Braille symbol
-	convert: function (character) {
-		var sign = undefined;
+var ASCII = {
+    " ": " ",
+    "⠸": "_",
+    "⠤": "-",
+    "⠠": ",",
+    "⠰": ";",
+    "⠱": ":",
+    "⠮": "!",
+    "⠹": "?",
+    "⠨": ".",
+    "⠷": "(",
+    "⠪": "[",
+    "⠈": "@",
+    "⠡": "*",
+    "⠌": "/",
+    "⠄": "\'",
+    "⠐": "\"",
+    "⠳": "\\",
+    "⠯": "&",
+    "⠩": "%",
+    "⠘": "^",
+    "⠬": "+",
+    "⠣": "<",
+    "⠜": ">",
+    "⠫": "$",
+    "⠴": "0",
+    "⠂": "1",
+    "⠆": "2",
+    "⠒": "3",
+    "⠲": "4",
+    "⠢": "5",
+    "⠖": "6",
+    "⠶": "7",
+    "⠦": "8",
+    "⠔": "9",
+    "⠁": "A",
+    "⠃": "B",
+    "⠉": "C",
+    "⠙": "D",
+    "⠑": "E",
+    "⠋": "F",
+    "⠛": "G",
+    "⠓": "H",
+    "⠊": "I",
+    "⠚": "J",
+    "⠅": "K",
+    "⠇": "L",
+    "⠍": "M",
+    "⠝": "N",
+    "⠕": "O",
+    "⠏": "P",
+    "⠟": "Q",
+    "⠗": "R",
+    "⠎": "S",
+    "⠞": "T",
+    "⠥": "U",
+    "⠧": "V",
+    "⠺": "W",
+    "⠭": "X",
+    "⠵": "Z",
+    "⠻": "]",
+    "⠼": "#",
+    "⠽": "Y",
+    "⠾": ")",
+    "⠿": "=",
+};
 
-		// searches sets
-		for (var i = this.sets.ascii.length - 1; i >= 0; i--) {
-			if(this.sets.ascii[i] == character){
-				sign = this.sets.dot6[i];
-			}
-		}
-		
-		// if not found will return undefined
-		return sign;
-	},
+// converts character to Braille symbol
+const convert = function (character) {
+	return BRAILLE[character];
+};
 
-	// converts Braille symbol to letter
-	read: function (symbol) {
-		var letter = undefined;
+// converts Braille symbol to letter
+const read = function (symbol) {
+	return ASCII[symbol];
+};
 
-		// searches sets
-		for (var i = this.sets.ascii.length - 1; i >= 0; i--) {
-			if(this.sets.dot6[i] == symbol){
-				letter = this.sets.ascii[i];
-			}
-		}
-		
-		// if not found will return undefined
-		return letter;
-	},
+// ---------------------------------------
 
-	// ---------------------------------------
+// converts text to ASCII Braille alphabet
+const toBraille = function (text) {
+	var upper = text.toUpperCase();
+	var result = "";
 
-	// converts text to ASCII Braille alphabet
-	toBraille: function (text) {
-		// make given text uppercase
-		var upper = text.toUpperCase(),
-			result = "";
-
-		for(var i = 0; i < upper.length; i++) {
-			var symbol = this.convert(upper[i]);
-
-			// unsupported letters will be ommited
-			if(typeof symbol == "undefined"){
-				result += "";
-			}
-			else{
-				result += symbol;
-			}
-		}
-
-		return result;
-	},
-
-	// converts ASCII Braille alphabet to text
-	toText: function (code) {
-		
-		var result = "";
-
-		for(var i = 0; i < code.length; i++) {
-			var symbol = this.read(code[i]);
-
-			// unsupported letters will be ommited
-			if(typeof symbol == "undefined"){
-				result += "";
-			}
-			else{
-				result += symbol;
-			}
-		}
-
-		return result;
+	for(var i=0; i < upper.length; i++){
+		symbol = convert(upper[i]);
+		result += symbol!==undefined?symbol:" ";
 	}
+
+	return result;
+};
+
+// converts ASCII Braille alphabet to text
+const toText =  function (code) {
+	var result = "";
 	
+	for(var i=0; i < code.length; i++){
+		symbol = read(code[i]);
+		result += symbol!==undefined?symbol:"";
+	}
+
+	return result;
+};
+
+
+
+module.exports = {
+  BRAILLE,
+  ASCII,
+  toBraille,
+  toText,	
 };
