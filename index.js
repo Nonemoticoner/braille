@@ -2,87 +2,178 @@
  * braille
  * https://github.com/Nonemoticoner/braille
  *
- * Copyright (c) 2015 Nonemoticoner
+ * Copyright (c) 2015-2018 Nonemoticoner
  * Licensed under the MIT license.
  */
 
+var BRAILLE = {
+        ' ': '⠀',   // space bar to dot-0
+        '_': '⠸',
+        '-': '⠤',
+        ',': '⠠',
+        ';': '⠰',
+        ':': '⠱',
+        '!': '⠮',
+        '?': '⠹',
+        '.': '⠨',
+        '(': '⠷',
+        '[': '⠪',
+        '@': '⠈',
+        '*': '⠡',
+        '/': '⠌',
+        '\'': '⠄',
+        '\"': '⠐',
+        '\\': '⠳',
+        '&': '⠯',
+        '%': '⠩',
+        '^': '⠘',
+        '+': '⠬',
+        '<': '⠣',
+        '>': '⠜',
+        '$': '⠫',
+        '0': '⠴',
+        '1': '⠂',
+        '2': '⠆',
+        '3': '⠒',
+        '4': '⠲',
+        '5': '⠢',
+        '6': '⠖',
+        '7': '⠶',
+        '8': '⠦',
+        '9': '⠔',
+        'A': '⠁',
+        'B': '⠃',
+        'C': '⠉',
+        'D': '⠙',
+        'E': '⠑',
+        'F': '⠋',
+        'G': '⠛',
+        'H': '⠓',
+        'I': '⠊',
+        'J': '⠚',
+        'K': '⠅',
+        'L': '⠇',
+        'M': '⠍',
+        'N': '⠝',
+        'O': '⠕',
+        'P': '⠏',
+        'Q': '⠟',
+        'R': '⠗',
+        'S': '⠎',
+        'T': '⠞',
+        'U': '⠥',
+        'V': '⠧',
+        'W': '⠺',
+        'X': '⠭',
+        'Z': '⠵',
+        ']': '⠻',
+        '#': '⠼',
+        'Y': '⠽',
+        ')': '⠾',
+        '=': '⠿'
+    },
+
+    ASCII = {
+        ' ': ' ',   // space bar to space bar
+        '⠀': ' ',   // dot-0 to space bar
+        '⠸': '_',
+        '⠤': '-',
+        '⠠': ',',
+        '⠰': ';',
+        '⠱': ':',
+        '⠮': '!',
+        '⠹': '?',
+        '⠨': '.',
+        '⠷': '(',
+        '⠪': '[',
+        '⠈': '@',
+        '⠡': '*',
+        '⠌': '/',
+        '⠄': '\'',
+        '⠐': '\"',
+        '⠳': '\\',
+        '⠯': '&',
+        '⠩': '%',
+        '⠘': '^',
+        '⠬': '+',
+        '⠣': '<',
+        '⠜': '>',
+        '⠫': '$',
+        '⠴': '0',
+        '⠂': '1',
+        '⠆': '2',
+        '⠒': '3',
+        '⠲': '4',
+        '⠢': '5',
+        '⠖': '6',
+        '⠶': '7',
+        '⠦': '8',
+        '⠔': '9',
+        '⠁': 'A',
+        '⠃': 'B',
+        '⠉': 'C',
+        '⠙': 'D',
+        '⠑': 'E',
+        '⠋': 'F',
+        '⠛': 'G',
+        '⠓': 'H',
+        '⠊': 'I',
+        '⠚': 'J',
+        '⠅': 'K',
+        '⠇': 'L',
+        '⠍': 'M',
+        '⠝': 'N',
+        '⠕': 'O',
+        '⠏': 'P',
+        '⠟': 'Q',
+        '⠗': 'R',
+        '⠎': 'S',
+        '⠞': 'T',
+        '⠥': 'U',
+        '⠧': 'V',
+        '⠺': 'W',
+        '⠭': 'X',
+        '⠵': 'Z',
+        '⠻': ']',
+        '⠼': '#',
+        '⠽': 'Y',
+        '⠾': ')',
+        '⠿': '='
+    };
+
 module.exports = {
-	sets: {
-		ascii: " A1B\'K2L@CIF/MSP\"E3H9O6R^DJG>NTQ,*5<-U8V.%[$+X!&;:4\\0Z7(_?W]#Y)=",
-		dot6:  "⠀⠁⠂⠃⠄⠅⠆⠇⠈⠉⠊⠋⠌⠍⠎⠏⠐⠑⠒⠓⠔⠕⠖⠗⠘⠙⠚⠛⠜⠝⠞⠟⠠⠡⠢⠣⠤⠥⠦⠧⠨⠩⠪⠫⠬⠭⠮⠯⠰⠱⠲⠳⠴⠵⠶⠷⠸⠹⠺⠻⠼⠽⠾⠿"
-	},
+    convert: function (character) {
+        return !!BRAILLE[character] ? BRAILLE[character] : '?';
+    },
 
-	// converts character to Braille symbol
-	convert: function (character) {
-		var sign = undefined;
+    read: function (symbol) {
+        return !!ASCII[symbol] ? ASCII[symbol] : '?';
+    },
 
-		// searches sets
-		for (var i = this.sets.ascii.length - 1; i >= 0; i--) {
-			if(this.sets.ascii[i] == character){
-				sign = this.sets.dot6[i];
-			}
-		}
-		
-		// if not found will return undefined
-		return sign;
-	},
+    toBraille: function (text) {
+        var upperText, upperTextLength, brailleText, i;
 
-	// converts Braille symbol to letter
-	read: function (symbol) {
-		var letter = undefined;
+        upperText = text.toUpperCase();
+        upperTextLength = upperText.length;
+        brailleText = '';
 
-		// searches sets
-		for (var i = this.sets.ascii.length - 1; i >= 0; i--) {
-			if(this.sets.dot6[i] == symbol){
-				letter = this.sets.ascii[i];
-			}
-		}
-		
-		// if not found will return undefined
-		return letter;
-	},
+        for (i = 0; i < upperTextLength; i++) {
+            brailleText += this.convert(upperText[i]);
+        }
 
-	// ---------------------------------------
+        return brailleText;
+    },
 
-	// converts text to ASCII Braille alphabet
-	toBraille: function (text) {
-		// make given text uppercase
-		var upper = text.toUpperCase(),
-			result = "";
+    toText: function (code) {
+        var codeLength, asciiText, i;
 
-		for(var i = 0; i < upper.length; i++) {
-			var symbol = this.convert(upper[i]);
+        codeLength = code.length;
+        asciiText = '';
 
-			// unsupported letters will be ommited
-			if(typeof symbol == "undefined"){
-				result += "";
-			}
-			else{
-				result += symbol;
-			}
-		}
+        for (i = 0; i < codeLength; i++) {
+            asciiText += this.read(code[i]);
+        }
 
-		return result;
-	},
-
-	// converts ASCII Braille alphabet to text
-	toText: function (code) {
-		
-		var result = "";
-
-		for(var i = 0; i < code.length; i++) {
-			var symbol = this.read(code[i]);
-
-			// unsupported letters will be ommited
-			if(typeof symbol == "undefined"){
-				result += "";
-			}
-			else{
-				result += symbol;
-			}
-		}
-
-		return result;
-	}
-	
+        return asciiText;
+    }
 };
