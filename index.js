@@ -2,7 +2,7 @@
  * braille
  * https://github.com/Nonemoticoner/braille
  *
- * Copyright (c) 2015 Nonemoticoner
+ * Copyright (c) 2015-2018 Nonemoticoner
  * Licensed under the MIT license.
  */
 
