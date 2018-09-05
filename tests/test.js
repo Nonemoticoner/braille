@@ -5,11 +5,11 @@ Braille = require('../index.js');
 
 describe('ASCII to braille: ', function () {
     it('should return a blank space if it does not found an ASCII character', function () {
-        Braille.convert('º').should.equal('?');
+        Braille.toBraille('º').should.equal(' ');
     });
 
     it('should return the braille unicode char if the ASCII char exists', function () {
-        Braille.convert('A').should.equal('⠁');
+        Braille.toBraille('A').should.equal('⠁');
     });
 
     it('should convert an ASCII string into a braille unicode string', function () {
@@ -26,11 +26,11 @@ describe('ASCII to braille: ', function () {
 
 describe('braille to ASCII: ', function () {
     it('should return a blank space if it does not found a braille unicode char', function () {
-        Braille.read('A').should.equal('?');
+        Braille.toText('A').should.equal(' ');
     });
 
     it('should return the ASCII char if the braille unicode char exists', function () {
-        Braille.read('⠁').should.equal('A');
+        Braille.toText('⠁').should.equal('A');
     });
 
     it('should convert a Braille string into an ASCII string', function () {

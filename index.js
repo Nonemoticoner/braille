@@ -7,7 +7,7 @@
  */
 
 var BRAILLE = {
-    " ": " ",
+    " ": "⠀", // space bar to dot-0
     "_": "⠸",
     "-": "⠤",
     ",": "⠠",
@@ -74,7 +74,8 @@ var BRAILLE = {
 };
 
 var ASCII = {
-    " ": " ",
+    " ": " ",   // space bar to space bar
+    "⠀": " ", // dot-0 to space bar
     "⠸": "_",
     "⠤": "-",
     "⠠": ",",
@@ -150,8 +151,6 @@ const read = function (symbol) {
 	return ASCII[symbol];
 };
 
-// ---------------------------------------
-
 // converts text to ASCII Braille alphabet
 const toBraille = function (text) {
 	var upper = text.toUpperCase();
@@ -171,38 +170,7 @@ const toText =  function (code) {
 	
 	for(var i=0; i < code.length; i++){
 		symbol = read(code[i]);
-		result += symbol!==undefined?symbol:"";
-
-// converts character to Braille symbol
-const convert = function (character) {
-	return BRAILLE[character];
-};
-
-// converts Braille symbol to letter
-const read = function (symbol) {
-	return ASCII[symbol];
-};
-
-// converts text to ASCII Braille alphabet
-const toBraille = function (text) {
-	var upper = text.toUpperCase();
-	var result = "";
-
-	for(var i=0; i < upper.length; i++){
-		symbol = convert(upper[i]);
 		result += symbol!==undefined?symbol:" ";
-	}
-
-	return result;
-};
-
-// converts ASCII Braille alphabet to text
-const toText =  function (code) {
-	var result = "";
-	
-	for(var i=0; i < code.length; i++){
-		symbol = read(code[i]);
-		result += symbol!==undefined?symbol:"";
 	}
 
 	return result;
