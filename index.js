@@ -13,7 +13,7 @@ var BRAILLE = {
         ',': '⠠',
         ';': '⠰',
         ':': '⠱',
-        '!': '⠮',
+        '!': '⠖',
         '?': '⠹',
         '.': '⠨',
         '(': '⠷',
@@ -37,7 +37,7 @@ var BRAILLE = {
         '3': '⠒',
         '4': '⠲',
         '5': '⠢',
-        '6': '⠖',
+        '6': '⠋',
         '7': '⠶',
         '8': '⠦',
         '9': '⠔',
@@ -74,14 +74,13 @@ var BRAILLE = {
     },
 
     ASCII = {
-        ' ': ' ',   // space bar to space bar
         '⠀': ' ',   // dot-0 to space bar
         '⠸': '_',
         '⠤': '-',
         '⠠': ',',
         '⠰': ';',
         '⠱': ':',
-        '⠮': '!',
+        '⠖': '!',
         '⠹': '?',
         '⠨': '.',
         '⠷': '(',
@@ -99,13 +98,14 @@ var BRAILLE = {
         '⠣': '<',
         '⠜': '>',
         '⠫': '$',
+      // TODO: add number indicator	⠼	3456
         '⠴': '0',
         '⠂': '1',
         '⠆': '2',
         '⠒': '3',
         '⠲': '4',
         '⠢': '5',
-        '⠖': '6',
+        '⠋': '6',
         '⠶': '7',
         '⠦': '8',
         '⠔': '9',
@@ -138,8 +138,33 @@ var BRAILLE = {
         '⠼': '#',
         '⠽': 'Y',
         '⠾': ')',
-        '⠿': '='
+        '⠿': '=',
+    },
+
+    CONTRACTIONS = {
+        '⠮': 'the',
+        '⠿': 'for',
+        '⠯': 'and',
+        '⠫': 'ed',
+        '⠬': 'ing',
     };
+
+Object.assign(ASCII, CONTRACTIONS)
+
+var contractions = Object.keys(CONTRACTIONS);
+
+var isConverted = function (character) {
+    return !!ASCII.hasOwnProperty(character);
+};
+
+var replaceContractions = function (text) {
+    for (var i = 0; i < contractions.length; i++) {
+        var braille = contractions[i];
+        var regex = new RegExp(CONTRACTIONS[braille], 'gi');
+        text = text.replace(regex, braille);
+    }
+    return text;
+};
 
 module.exports = {
     convert: function (character) {
@@ -151,6 +176,7 @@ module.exports = {
     },
 
     toBraille: function (text) {
+        text = replaceContractions(text);
         var upperText, upperTextLength, brailleText, i;
 
         upperText = text.toUpperCase();
@@ -158,7 +184,10 @@ module.exports = {
         brailleText = '';
 
         for (i = 0; i < upperTextLength; i++) {
-            brailleText += this.convert(upperText[i]);
+            var character = upperText[i]
+            brailleText += isConverted(character)
+                ? character
+                : this.convert(character);
         }
 
         return brailleText;
